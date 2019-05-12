@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
 
-class Starwars extends React-Component{
-   function OnLoad(){
+class Starwars extends React.Component {
+   //function OnLoad(){
    	return(
       axios.get('https://swapi.co/api/people/?page=1')
            .then(
@@ -13,6 +13,7 @@ class Starwars extends React-Component{
                 })
          
          );
-     }
+    //  }
+ }
 
 export default Starwars
