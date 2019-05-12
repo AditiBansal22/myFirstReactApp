@@ -21,12 +21,13 @@ class ShoppingList extends React.Component   {
            }*/
            
           render(){
-                    {starwars.map(starWar =>starWar.name)}
+                <div>
+                    {starWars.map(starWar =>starWar.name)}
                     <button className="btn btn-default">
                         Star Wars
                     </button>
                 </div>
-          );
+          //);
       }  
 }
     
