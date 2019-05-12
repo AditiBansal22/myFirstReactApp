@@ -1,37 +1,51 @@
 import React from 'react' ;
 import ReactDOM from 'react-dom' ;
 import axios from 'axios';
-import  starWars from './starwars.js';
 import './index.css';
+const { useState } = React;
 
-
-class ShoppingList extends React.Component   {
-     //state = {
-     // users : [],
-       
-     //}
-     
-    //onClickGetUsers (){
-      //https://swapi.co/api/people/?page=
-       /* axios.get('https://swapi.co/api/people/?page=1')
-             .then(function(response){
-                const users = response.data.results
-                console.log( "Users object:" +users)
-             })
-           }*/
-           
-          render(){
-            return(
-                <div>
-                    {starWars.map(starWar =>starWar.name)}
-                    <button className="btn btn-default">
-                        Star Wars
-                    </button>
-                </div>
-                );
-          //);
-      }  
+class Card extends React.Component {
+    render() {
+        return (
+            <div style={{margin: '1em'}}>
+                <div id={this.props.name}> {this.props.name} </div>
+            </div>
+        );
+    }
 }
-    
-   
-            ReactDOM.render(<ShoppingList />, document.getElementById('root'));
+
+class CardList extends React.Component {
+    render() {
+        return (
+            <div>
+                {this.props.cards.map(card => (
+                    <Card {...card} />
+                ))}
+            </div>
+        );
+    }
+}
+
+
+function ShoppingList() {
+        const [cards, setCards] = useState([]);
+
+        const onClickGetUsers = () => {
+            let swapi_url = "https://swapi.co/api/people/?page=1";
+            axios.get(swapi_url)
+                .then(function (response) {
+                    setCards(response.data.results);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        };
+
+        return (
+            <div>
+                <button className="btn btn-default" onClick ={onClickGetUsers}>Star Wars</button>
+                <CardList cards={cards} />
+            </div>
+        );
+}
+ReactDOM.render(<ShoppingList />, document.getElementById('root'));
